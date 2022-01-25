@@ -156,7 +156,7 @@ def calculate_metrics(args):
     description = "The number of non-N bases in autosomes over which coverage will be evaluated."
     logging.info(f"Calculating metrics: {id}...")
     cmd = "zcat %s | awk -F '\\t' 'BEGIN { SUM=0 } { SUM+=$3-$2 } END { print SUM }'" % mosdepth_bed
-    value = int(try_run_command(cmd, return_stdout=True))
+    value = float(int(try_run_command(cmd, return_stdout=True)))
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
     for min_depth in 1, 5, 10, 15, 20, 25, 30:
