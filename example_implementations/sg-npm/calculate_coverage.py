@@ -128,6 +128,7 @@ def calculate_metrics(args):
     description = "The mean coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
     cmd = f"zcat {mosdepth_bed} | datamash mean 4"
+    logging.info(f"command is: {cmd}...")
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
@@ -135,6 +136,7 @@ def calculate_metrics(args):
     description = "The standard deviation of coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
     cmd = f"zcat {mosdepth_bed} | datamash sstdev 4"
+    logging.info(f"command is: {cmd}...")
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
@@ -142,6 +144,7 @@ def calculate_metrics(args):
     description = "The median coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
     cmd = f"zcat {mosdepth_bed} | datamash median 4"
+    logging.info(f"command is: {cmd}...")
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
@@ -149,6 +152,7 @@ def calculate_metrics(args):
     description = "The median absolute deviation of coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
     cmd = f"zcat {mosdepth_bed} | datamash madraw 4"
+    logging.info(f"command is: {cmd}...")
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
@@ -156,6 +160,7 @@ def calculate_metrics(args):
     description = "The number of non-N bases in autosomes over which coverage will be evaluated."
     logging.info(f"Calculating metrics: {id}...")
     cmd = "zcat %s | awk -F '\\t' 'BEGIN { SUM=0 } { SUM+=$3-$2 } END { print SUM }'" % mosdepth_bed
+    logging.info(f"command is: {cmd}...")
     value = float(int(try_run_command(cmd, return_stdout=True)))
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
@@ -164,6 +169,7 @@ def calculate_metrics(args):
         description = f"The percentage of bases that attained at least {min_depth}X sequence coverage in autosomes, after coverage filters are applied."
         logging.info(f"Calculating metrics: {id}...")
         cmd = "zcat %s | awk '$4>=%d' | awk -F '\\t' 'BEGIN { SUM=0 } { SUM+=$3-$2 } END { print SUM }'" % (mosdepth_bed, min_depth)
+        logging.info(f"command is: {cmd}...")
         min_depth_bases = try_run_command(cmd, return_stdout=True)
         total_bases = metrics_dict["total_autosome_bases"]["value"]
         value = round(int(min_depth_bases)/int(total_bases) * 100, 4)
