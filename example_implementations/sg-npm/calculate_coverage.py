@@ -161,7 +161,7 @@ def calculate_metrics(args):
     logging.info(f"Calculating metrics: {id}...")
     cmd = "zcat %s | awk -F '\\t' 'BEGIN { SUM=0 } { SUM+=$3-$2 } END { print SUM }'" % mosdepth_bed
     logging.info(f"command is: {cmd}...")
-    value = float(int(try_run_command(cmd, return_stdout=True)))
+    value = int(float(try_run_command(cmd, return_stdout=True)))
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
     for min_depth in 1, 5, 10, 15, 20, 25, 30:
