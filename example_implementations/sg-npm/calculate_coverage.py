@@ -127,28 +127,28 @@ def calculate_metrics(args):
     id = "mean_autosome_coverage"
     description = "The mean coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
-    cmd = f"zcat {mosdepth_bed} | datamash round 4 mean 4"
+    cmd = f"zcat {mosdepth_bed} | datamash mean 4"
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
     id = "sd_autosome_coverage"
     description = "The standard deviation of coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
-    cmd = f"zcat {mosdepth_bed} | datamash round 4 sstdev 4"
+    cmd = f"zcat {mosdepth_bed} | datamash sstdev 4"
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
     id = "median_autosome_coverage"
     description = "The median coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
-    cmd = f"zcat {mosdepth_bed} | datamash round 4 median 4"
+    cmd = f"zcat {mosdepth_bed} | datamash median 4"
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
     id = "mad_autosome_coverage"
     description = "The median absolute deviation of coverage in autosomes, after coverage filters are applied."
     logging.info(f"Calculating metrics: {id}...")
-    cmd = f"zcat {mosdepth_bed} | datamash round 4 madraw 4"
+    cmd = f"zcat {mosdepth_bed} | datamash madraw 4"
     value = round(float(try_run_command(cmd, return_stdout=True)), 4)
     metrics_dict[id] = dict(description=description, source=source, implementation_details=implementation_details, value=value)
 
